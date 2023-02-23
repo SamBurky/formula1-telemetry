@@ -3,3 +3,6 @@ cache/
 
 # Saved Telemetry Images
 Telemetry/Telemetry-PNGS/
+
+# Virtual environment
+venv/
