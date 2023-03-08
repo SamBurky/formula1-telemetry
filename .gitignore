@@ -1,5 +1,6 @@
 # Cache
 cache/
+flask-server/cache/
 
 # Saved Telemetry Images
 Telemetry/Telemetry-PNGS/

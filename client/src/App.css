@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+#dropdownMenu {
+  display: inline-flex;
+  position: fixed;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+}
