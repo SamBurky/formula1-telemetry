@@ -9,15 +9,15 @@ function DriverDropdown(props) {
 
     return (
         <DropdownButton id="driver-dropdown" title="Select Driver">
-            
-            {(typeof driverList.drivers === 'undefined') ? (
-                <Dropdown.Item key="drivers-loading">Loading...</Dropdown.Item>
-            ) : (
-                driverList.drivers.map((driver, i) => (
-                <Dropdown.Item key={i}>{driver}</Dropdown.Item>
-                ))
-            )}
-
+            <div style={{height:"210px", overflowY:"scroll"}}>
+                {(typeof driverList.drivers === 'undefined') ? (
+                    <Dropdown.Item key="drivers-loading">Loading...</Dropdown.Item>
+                ) : (
+                    driverList.drivers.map((driver, i) => (
+                    <Dropdown.Item key={i}>{driver}</Dropdown.Item>
+                    ))
+                )}
+            </div>
         </DropdownButton>
     );
 }

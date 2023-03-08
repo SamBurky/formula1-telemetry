@@ -9,7 +9,7 @@ function EventDropdown(props) {
 
   return (
       <DropdownButton id="event-dropdown" title="Select Event">
-          
+        <div style={{height:"210px", overflowY:"scroll"}}>
           {(typeof eventsList.events === 'undefined') ? (
               <Dropdown.Item key="year-loading">Loading...</Dropdown.Item>
           ) : (
@@ -17,7 +17,7 @@ function EventDropdown(props) {
               <Dropdown.Item key={i}>{event}</Dropdown.Item>
               ))
           )}
-
+        </div>  
       </DropdownButton>
   );
 }
