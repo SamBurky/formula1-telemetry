@@ -8,9 +8,9 @@ fastf1.Cache.enable_cache('./cache')
 
 app = Flask(__name__)
 
-@app.route("/events")
-def events():
-    schedule = fastf1.get_event_schedule(2021)
+@app.route("/events/<int:year>")
+def events(year):
+    schedule = fastf1.get_event_schedule(year)
     events = schedule['EventName']
     return {"events": events.tolist()}
 
