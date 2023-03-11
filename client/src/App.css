@@ -45,6 +45,13 @@
   transform: translate(-50%, -50%);
 }
 
+#lap-times-graph {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 /* .dropdown-menu {
   max-height: 210px;
   overflow-y: scroll;

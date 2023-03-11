@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import LapTimesGraph from './LapTimesGraph';
 
 class Dropdowns extends React.Component {
   constructor(props) {
@@ -10,22 +12,25 @@ class Dropdowns extends React.Component {
     this.handleYearChange = this.handleYearChange.bind(this);
     this.handleEventChange = this.handleEventChange.bind(this);
     this.handleSessionChange = this.handleSessionChange.bind(this);
-    this.handleDriverChange = this.handleDriverChange.bind(this);
+    this.handleDriver1Change = this.handleDriver1Change.bind(this);
+    this.handleDriver2Change = this.handleDriver2Change.bind(this);
 
     this.state = {
       year: 'Select Year',
+      years: ['2023','2022','2021','2020','2019','2018'],
       event: 'Select Event',
       events: '',
       session: 'Select Session',
       sessions: '',
-      driver: 'SelectDriver',
+      driver1: 'Select Driver 1',
+      driver2: 'Select Driver 2',
       drivers: '',
     };
 
   }
 
   handleYearChange(yearInput) {
-    this.setState({year: yearInput})
+    this.setState({year: yearInput, event: 'Select Event', session: 'Select Session', driver1: 'Select Driver 1', driver2: 'Select Driver 2'})
     fetch("/events/" + yearInput)
     .then(res => {
       return res.json()
@@ -38,8 +43,8 @@ class Dropdowns extends React.Component {
   }
 
   handleEventChange(eventInput) {
-    this.setState({event: eventInput});
-    fetch("/sessions")
+    this.setState({event: eventInput, session: 'Select Session', driver1: 'Select Driver 1', driver2: 'Select Driver 2'});
+    fetch("/sessions/" + this.state.year + "/" + eventInput)
     .then(res => {
       return res.json()
     })
@@ -51,8 +56,8 @@ class Dropdowns extends React.Component {
   }
 
   handleSessionChange(sessionInput) {
-    this.setState({session: sessionInput});
-    fetch("/drivers")
+    this.setState({session: sessionInput, driver1: 'Select Driver 1', driver2: 'Select Driver 2'});
+    fetch("/drivers/" + this.state.year + "/" + this.state.event + "/" + sessionInput)
     .then(res => {
       return res.json()
     })
@@ -63,18 +68,23 @@ class Dropdowns extends React.Component {
     )
   }
 
-  handleDriverChange(driverInput) {
-    this.setState({driver: driverInput});
+  handleDriver1Change(driverInput) {
+    this.setState({driver1: driverInput});
+  }
+
+  handleDriver2Change(driverInput) {
+    this.setState({driver2: driverInput});
   }
 
   render() {
     const year = this.state.year;
     return (
-      <div>
-        <YearDropdown2 year={this.state.year} onYearChange={this.handleYearChange}/>
-        <EventDropdown2 event={this.state.event} events={this.state.events} onEventChange={this.handleEventChange} />
-        <SessionDropdown2 session={this.state.session} sessions={this.state.sessions} onSessionChange={this.handleSessionChange} />
-        <DriverDropdown2 driver={this.state.driver} drivers={this.state.drivers} onDriverChange={this.handleDriverChange}/>
+      <div id="dropdownMenu">
+        <YearDropdown year={this.state.year} years={this.state.years} onYearChange={this.handleYearChange}/>
+        <EventDropdown event={this.state.event} events={this.state.events} onEventChange={this.handleEventChange} />
+        <SessionDropdown session={this.state.session} sessions={this.state.sessions} onSessionChange={this.handleSessionChange} />
+        <DriverDropdown driver={this.state.driver1} drivers={this.state.drivers} onDriverChange={this.handleDriver1Change}/>
+        <DriverDropdown driver={this.state.driver2} drivers={this.state.drivers} onDriverChange={this.handleDriver2Change}/>
       </div>
     );
 
@@ -82,7 +92,7 @@ class Dropdowns extends React.Component {
   }
 }
 
-class YearDropdown2 extends React.Component {
+class YearDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.handleSelect = this.handleSelect.bind(this);
@@ -93,22 +103,21 @@ class YearDropdown2 extends React.Component {
   }
 
   render () {
-    const year = this.props.year;
+    const yearTitle = this.props.year;
+    const yearsList = this.props.years;
 
     return(
-      <DropdownButton id="year-dropdown" title={year} onSelect={this.handleSelect}>
-        <Dropdown.Item eventKey="2023">2023</Dropdown.Item>
-        <Dropdown.Item eventKey="2022">2022</Dropdown.Item>
-        <Dropdown.Item eventKey="2021">2021</Dropdown.Item>
-        <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-        <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-        <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
+      <DropdownButton id="year-dropdown" title={yearTitle} onSelect={this.handleSelect}>
+        {yearsList.map((year, i) => (
+              <Dropdown.Item key={i} eventKey={year}>{year}</Dropdown.Item>
+            ))
+        }
       </DropdownButton>
     );
   }
 };
 
-class EventDropdown2 extends React.Component {
+class EventDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.handleSelect = this.handleSelect.bind(this)
@@ -139,7 +148,7 @@ class EventDropdown2 extends React.Component {
 
 };
 
-class SessionDropdown2 extends React.Component {
+class SessionDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.handleSelect = this.handleSelect.bind(this)
@@ -170,7 +179,7 @@ class SessionDropdown2 extends React.Component {
 }
 
 
-class DriverDropdown2 extends React.Component {
+class DriverDropdown extends React.Component {
   constructor(props) {
     super(props);
     this.handleSelect = this.handleSelect.bind(this)
