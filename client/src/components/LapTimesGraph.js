@@ -29,17 +29,17 @@ class LapTimesGraph extends React.Component {
 
 
         return (  
-            <div id="lap-times-graph">
-                Lap Times Graph
-                <Button id="submit-button" onClick={this.handleLapDataChange}>Submit?</Button>
+                <div id="lap-times-graph">
+                    Lap Times Graph
+                    <Button id="submit-button" onClick={this.handleLapDataChange}>Submit?</Button>
 
-                <LineChart width={600} height={300} data={this.state.lapData}>
-                    <Line type="monotone" dataKey="LapTime" stroke="#8884d8" />
-                    <CartesianGrid stroke="#ccc" />
-                    <XAxis dataKey="LapNumber" />
-                    <YAxis dataKey="LapTime" />
-                </LineChart>
-            </div>
+                    <LineChart width={600} height={300} data={this.state.lapData}>
+                        <Line type="monotone" dataKey="LapNumber" stroke="#8884d8" />
+                        <CartesianGrid stroke="#ccc" />
+                        <XAxis dataKey="LapNumber" />
+                        <YAxis dataKey="LapTime" />
+                    </LineChart>
+                </div>
         );
     }
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Dropdowns from './components/Dropdowns';
 import './App.css';
 import LapTimesGraph from './components/LapTimesGraph';
+import ExampleChart from './components/ExampleChart';
 
 function App() {
 
@@ -13,6 +14,9 @@ function App() {
       <div>
         <LapTimesGraph />
       </div>
+      {/* <div>
+        <ExampleChart />
+      </div> */}
     </div>
   );
 }

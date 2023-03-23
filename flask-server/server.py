@@ -1,6 +1,7 @@
 from flask import Flask
 import fastf1
 import warnings
+import json
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 # Enable Caching
@@ -44,7 +45,14 @@ def lapData():
         'VER').pick_quicklaps()
     quicklaps_driver_1 = quicklaps_driver_1[[
         'LapTime', 'LapNumber', 'Team', 'Driver']]
-    return {"lapData": quicklaps_driver_1.to_json()}
+    quicklaps_driver_1['LapTime'] = str(quicklaps_driver_1['LapTime'])
+    data = []
+    for index, row in quicklaps_driver_1.iterrows():
+        data.append([row['LapNumber'],
+                    row['LapTime']])
+    laps_data = json.dumps(data)
+    return laps_data
+    # return {"lapData": quicklaps_driver_1.to_json(orient="records")}
 
 
 if __name__ == "__main__":
