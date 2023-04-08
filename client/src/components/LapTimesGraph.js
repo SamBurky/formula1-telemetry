@@ -10,7 +10,7 @@ class LapTimesGraph extends React.Component {
     }
 
     state = { 
-        lapData: '' 
+        lapData: ''
     }
 
     handleLapDataChange() {
@@ -20,9 +20,10 @@ class LapTimesGraph extends React.Component {
         })
         .then(lapDataBack => {
         console.log(lapDataBack);
-        this.setState({  lapData: lapDataBack });
+        this.setState({ lapData: lapDataBack })
         }
         )
+
     }
 
     render() { 
@@ -30,15 +31,15 @@ class LapTimesGraph extends React.Component {
 
         return (  
                 <div id="lap-times-graph">
+                    <LineChart width={600} height={300} data={this.state.lapData}>
+                        <XAxis interval={4} />
+                        <YAxis dataKey="LapTime" type= "number" domain={['dataMin - 1', 'dataMax + 1']} />
+                        <Line type="monotone" dataKey="LapTime" stroke="#8884d8" />
+                        <CartesianGrid stroke="#ccc" />
+                    </LineChart>
                     Lap Times Graph
                     <Button id="submit-button" onClick={this.handleLapDataChange}>Submit?</Button>
 
-                    <LineChart width={600} height={300} data={this.state.lapData}>
-                        <Line type="monotone" dataKey="LapNumber" stroke="#8884d8" />
-                        <CartesianGrid stroke="#ccc" />
-                        <XAxis dataKey="LapNumber" />
-                        <YAxis dataKey="LapTime" />
-                    </LineChart>
                 </div>
         );
     }

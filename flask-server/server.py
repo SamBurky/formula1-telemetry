@@ -39,20 +39,28 @@ def drivers(year, event, session):
 
 @app.route("/lapData")
 def lapData():
+    # Get session
     selected_session = fastf1.get_session(2022, 'Bahrain Grand Prix', 'Race')
     selected_session.load()
+
+    # Include outliers
+    laps_driver_1 = selected_session.laps.pick_driver(
+        'VER').pick_quicklaps()
+    laps_driver_1 = laps_driver_1[[
+        'LapTime', 'LapNumber', 'Team', 'Driver']]
+    
+    # Exclude outliers
     quicklaps_driver_1 = selected_session.laps.pick_driver(
         'VER').pick_quicklaps()
     quicklaps_driver_1 = quicklaps_driver_1[[
         'LapTime', 'LapNumber', 'Team', 'Driver']]
-    quicklaps_driver_1['LapTime'] = str(quicklaps_driver_1['LapTime'])
-    data = []
-    for index, row in quicklaps_driver_1.iterrows():
-        data.append([row['LapNumber'],
-                    row['LapTime']])
-    laps_data = json.dumps(data)
-    return laps_data
-    # return {"lapData": quicklaps_driver_1.to_json(orient="records")}
+    
+    # Convert to JSON format
+    # TODO: Solution for seconds formatting that preserves all data
+    json_str = laps_driver_1.to_json(orient="records", date_unit="s")
+    parsed = json.loads(json_str)
+
+    return parsed
 
 
 if __name__ == "__main__":
