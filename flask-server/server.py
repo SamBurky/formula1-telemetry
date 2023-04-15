@@ -1,4 +1,5 @@
 from flask import Flask
+import pandas as pd
 import fastf1
 import warnings
 import json
@@ -48,16 +49,30 @@ def lapData():
         'VER').pick_quicklaps()
     laps_driver_1 = laps_driver_1[[
         'LapTime', 'LapNumber', 'Team', 'Driver']]
-    
+    laps_driver_1 = laps_driver_1.rename(columns={'LapTime': 'LapTime1', 'Team': 'Team1', 'Driver': 'Driver1'})
+    laps_driver_2 = selected_session.laps.pick_driver(
+        'LEC').pick_quicklaps()
+    laps_driver_2 = laps_driver_2[[
+        'LapTime', 'LapNumber', 'Team', 'Driver']]
+    laps_driver_2 = laps_driver_2.rename(columns={'LapTime': 'LapTime2', 'Team': 'Team2', 'Driver': 'Driver2'})
+    laps = laps_driver_1.merge(laps_driver_2, how='outer')
+    # laps = pd.merge([laps_driver_1, laps_driver_2], on="LapNumber", how="outer")
+
+
     # Exclude outliers
     quicklaps_driver_1 = selected_session.laps.pick_driver(
         'VER').pick_quicklaps()
     quicklaps_driver_1 = quicklaps_driver_1[[
         'LapTime', 'LapNumber', 'Team', 'Driver']]
+    quicklaps_driver_2 = selected_session.laps.pick_driver(
+        'LEC').pick_quicklaps()
+    quicklaps_driver_2 = quicklaps_driver_2[[
+        'LapTime', 'LapNumber', 'Team', 'Driver']]
     
     # Convert to JSON format
     # TODO: Solution for seconds formatting that preserves all data
-    json_str = laps_driver_1.to_json(orient="records", date_unit="s")
+    json_str = laps.to_json(orient="records", date_unit="ms")
+    # json_str += laps_driver_2.to_json(orient="records", date_unit="ms")
     parsed = json.loads(json_str)
 
     return parsed
