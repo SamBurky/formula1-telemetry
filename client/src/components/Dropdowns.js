@@ -1,129 +1,133 @@
 import React from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import LapTimesGraph from "./LapTimesGraph";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+} from "@mui/material";
 
 class Dropdowns extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleYearChange = this.handleYearChange.bind(this);
-    this.handleEventChange = this.handleEventChange.bind(this);
-    this.handleSessionChange = this.handleSessionChange.bind(this);
-    this.handleDriver1Change = this.handleDriver1Change.bind(this);
-    this.handleDriver2Change = this.handleDriver2Change.bind(this);
+    //   this.handleYearChange = this.handleYearChange.bind(this);
+    //   this.handleEventChange = this.handleEventChange.bind(this);
+    //   this.handleSessionChange = this.handleSessionChange.bind(this);
+    //   this.handleDriver1Change = this.handleDriver1Change.bind(this);
+    //   this.handleDriver2Change = this.handleDriver2Change.bind(this);
 
-    this.state = {
-      year: "Select Year",
-      years: ["2023", "2022", "2021", "2020", "2019", "2018"],
-      event: "Select Event",
-      events: "",
-      session: "Select Session",
-      sessions: "",
-      driver1: "Select Driver 1",
-      driver2: "Select Driver 2",
-      drivers: "",
-    };
+    //   this.state = {
+    //     year: "Select Year",
+    //     years: ["2023", "2022", "2021", "2020", "2019", "2018"],
+    //     event: "Select Event",
+    //     events: "",
+    //     session: "Select Session",
+    //     sessions: "",
+    //     driver1: "Select Driver 1",
+    //     driver2: "Select Driver 2",
+    //     drivers: "",
+    //   };
   }
 
-  handleYearChange(yearInput) {
-    this.setState({
-      year: yearInput,
-      event: "Select Event",
-      session: "Select Session",
-      driver1: "Select Driver 1",
-      driver2: "Select Driver 2",
-    });
-    fetch("/events/" + yearInput)
-      .then((res) => {
-        return res.json();
-      })
-      .then((eventsBack) => {
-        console.log(eventsBack);
-        this.setState({ events: eventsBack });
-      });
-  }
+  // handleYearChange(yearInput) {
+  //   this.setState({
+  //     year: yearInput,
+  //     event: "Select Event",
+  //     session: "Select Session",
+  //     driver1: "Select Driver 1",
+  //     driver2: "Select Driver 2",
+  //   });
+  //   fetch("/events/" + yearInput)
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((eventsBack) => {
+  //       console.log(eventsBack);
+  //       this.setState({ events: eventsBack });
+  //     });
+  // }
 
-  handleEventChange(eventInput) {
-    this.setState({
-      event: eventInput,
-      session: "Select Session",
-      driver1: "Select Driver 1",
-      driver2: "Select Driver 2",
-    });
-    fetch("/sessions/" + this.state.year + "/" + eventInput)
-      .then((res) => {
-        return res.json();
-      })
-      .then((sessionsBack) => {
-        console.log(sessionsBack);
-        this.setState({ sessions: sessionsBack });
-      });
-  }
+  // handleEventChange(eventInput) {
+  //   this.setState({
+  //     event: eventInput,
+  //     session: "Select Session",
+  //     driver1: "Select Driver 1",
+  //     driver2: "Select Driver 2",
+  //   });
+  //   fetch("/sessions/" + this.state.year + "/" + eventInput)
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((sessionsBack) => {
+  //       console.log(sessionsBack);
+  //       this.setState({ sessions: sessionsBack });
+  //     });
+  // }
 
-  handleSessionChange(sessionInput) {
-    this.setState({
-      session: sessionInput,
-      driver1: "Select Driver 1",
-      driver2: "Select Driver 2",
-    });
-    fetch(
-      "/drivers/" +
-        this.state.year +
-        "/" +
-        this.state.event +
-        "/" +
-        sessionInput
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((driversBack) => {
-        console.log(driversBack);
-        this.setState({ drivers: driversBack });
-      });
-  }
+  // handleSessionChange(sessionInput) {
+  //   this.setState({
+  //     session: sessionInput,
+  //     driver1: "Select Driver 1",
+  //     driver2: "Select Driver 2",
+  //   });
+  //   fetch(
+  //     "/drivers/" +
+  //       this.state.year +
+  //       "/" +
+  //       this.state.event +
+  //       "/" +
+  //       sessionInput
+  //   )
+  //     .then((res) => {
+  //       return res.json();
+  //     })
+  //     .then((driversBack) => {
+  //       console.log(driversBack);
+  //       this.setState({ drivers: driversBack });
+  //     });
+  // }
 
-  handleDriver1Change(driverInput) {
-    this.setState({ driver1: driverInput });
-  }
+  // handleDriver1Change(driverInput) {
+  //   this.setState({ driver1: driverInput });
+  // }
 
-  handleDriver2Change(driverInput) {
-    this.setState({ driver2: driverInput });
-  }
+  // handleDriver2Change(driverInput) {
+  //   this.setState({ driver2: driverInput });
+  // }
 
   render() {
-    const year = this.state.year;
+    const year = this.props.year;
     return (
       <div id="dropdownMenu">
         <YearDropdown
-          year={this.state.year}
-          years={this.state.years}
-          onYearChange={this.handleYearChange}
+          year={this.props.year}
+          years={this.props.years}
+          onYearChange={this.props.onYearChange}
         />
         <EventDropdown
-          event={this.state.event}
-          events={this.state.events}
-          onEventChange={this.handleEventChange}
+          event={this.props.event}
+          events={this.props.events}
+          onEventChange={this.props.onEventChange}
         />
         <SessionDropdown
-          session={this.state.session}
-          sessions={this.state.sessions}
-          onSessionChange={this.handleSessionChange}
+          session={this.props.session}
+          sessions={this.props.sessions}
+          onSessionChange={this.props.onSessionChange}
         />
         <DriverDropdown
-          driver={this.state.driver1}
-          drivers={this.state.drivers}
-          onDriverChange={this.handleDriver1Change}
+          driver={this.props.driver1}
+          drivers={this.props.drivers}
+          onDriverChange={this.props.onDriver1Change}
         />
         <DriverDropdown
-          driver={this.state.driver2}
-          drivers={this.state.drivers}
-          onDriverChange={this.handleDriver2Change}
+          driver={this.props.driver2}
+          drivers={this.props.drivers}
+          onDriverChange={this.props.onDriver2Change}
         />
+        <Button variant="outlined" onClick={this.props.onLapDataChange}>
+          Submit
+        </Button>
       </div>
     );
   }
@@ -145,12 +149,13 @@ class YearDropdown extends React.Component {
 
     return (
       <FormControl fullWidth>
-        <InputLabel id="year-dropdown-label">Year</InputLabel>
+        <InputLabel id="year-dropdown-label">Select Year</InputLabel>
         <Select
           labelId="year-dropdown-label"
           id="year-select"
           value={yearTitle}
           label="Year"
+          autoWidth
           onChange={this.handleSelect}
         >
           {yearsList.map((year, i) => (
@@ -187,12 +192,13 @@ class EventDropdown extends React.Component {
 
     return (
       <FormControl fullWidth>
-        <InputLabel id="event-dropdown-label">Event</InputLabel>
+        <InputLabel id="event-dropdown-label">Select Event</InputLabel>
         <Select
           labelId="event-dropdown-label"
           id="event-select"
           value={eventName}
           label="event"
+          autoWidth
           onChange={this.handleSelect}
         >
           {typeof eventsList.events === "undefined" ? (
@@ -244,12 +250,13 @@ class SessionDropdown extends React.Component {
 
     return (
       <FormControl fullWidth>
-        <InputLabel id="session-dropdown-label">Session</InputLabel>
+        <InputLabel id="session-dropdown-label">Select Session</InputLabel>
         <Select
           labelId="session-dropdown-label"
           id="session-select"
           value={sessionName}
           label="session"
+          autoWidth
           onChange={this.handleSelect}
         >
           {typeof sessionsList.sessions === "undefined" ? (
@@ -299,12 +306,13 @@ class DriverDropdown extends React.Component {
 
     return (
       <FormControl fullWidth>
-        <InputLabel id="driver-dropdown-label">Driver</InputLabel>
+        <InputLabel id="driver-dropdown-label">Select Drivers</InputLabel>
         <Select
           labelId="driver-dropdown-label"
           id="driver-select"
           value={driverName}
           label="driver"
+          autoWidth
           onChange={this.handleSelect}
         >
           {typeof driversList.drivers === "undefined" ? (
