@@ -17,14 +17,14 @@ class GraphContainer extends Component {
     this.handleSelectLap = this.handleSelectLap.bind(this);
 
     this.state = {
-      year: "Select Year",
+      year: "",
       years: ["2023", "2022", "2021", "2020", "2019", "2018"],
-      event: "Select Event",
+      event: "",
       events: "",
-      session: "Select Session",
+      session: "",
       sessions: "",
-      driver1: "Select Driver 1",
-      driver2: "Select Driver 2",
+      driver1: "",
+      driver2: "",
       drivers: "",
       lapData: "",
       selectedLaps: "",
@@ -34,10 +34,10 @@ class GraphContainer extends Component {
   handleYearChange(yearInput) {
     this.setState({
       year: yearInput,
-      event: "Select Event",
-      session: "Select Session",
-      driver1: "Select Driver 1",
-      driver2: "Select Driver 2",
+      event: "",
+      session: "",
+      driver1: "",
+      driver2: "",
     });
     fetch("/events/" + yearInput)
       .then((res) => {
@@ -52,9 +52,9 @@ class GraphContainer extends Component {
   handleEventChange(eventInput) {
     this.setState({
       event: eventInput,
-      session: "Select Session",
-      driver1: "Select Driver 1",
-      driver2: "Select Driver 2",
+      session: "",
+      driver1: "",
+      driver2: "",
     });
     fetch("/sessions/" + this.state.year + "/" + eventInput)
       .then((res) => {
@@ -69,8 +69,8 @@ class GraphContainer extends Component {
   handleSessionChange(sessionInput) {
     this.setState({
       session: sessionInput,
-      driver1: "Select Driver 1",
-      driver2: "Select Driver 2",
+      driver1: "",
+      driver2: "",
     });
     fetch(
       "/drivers/" +
@@ -126,7 +126,7 @@ class GraphContainer extends Component {
   render() {
     return (
       <div>
-        <div id="dropdown-container">
+        <div className="flex-container">
           <Dropdowns
             // Handlers
             onYearChange={this.handleYearChange}
@@ -163,7 +163,7 @@ class GraphContainer extends Component {
         <div>
           <Minisectors />
         </div>
-        <div>
+        <div className="telemetry">
           <Telemetry />
         </div>
       </div>

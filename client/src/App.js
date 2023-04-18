@@ -13,7 +13,7 @@ function App() {
         <LapTimesGraph />
       </div> */}
       <div>
-        <GraphContainer />
+        <GraphContainer id="container" />
       </div>
     </div>
   );

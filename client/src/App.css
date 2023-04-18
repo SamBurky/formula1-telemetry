@@ -39,19 +39,32 @@
 
 #dropdownMenu {
   display: inline-flex;
-  position: fixed;
+  /* position: fixed;
   left: 50%;
   top: 20%;
   transform: translate(-50%, -50%);
-  overflow: inherit !important;
+  overflow: inherit !important; */
 }
 
+/* 
 #lap-times-graph {
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+} */
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
+/* 
+.telemetry {
+  grid-row: span 4;
+  grid-column: span 2;
+} */
 
 /* .dropdown-menu {
   max-height: 210px;

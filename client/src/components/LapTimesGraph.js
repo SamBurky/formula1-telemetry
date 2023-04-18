@@ -28,7 +28,7 @@ class LapTimesGraph extends React.Component {
             activeDot={{
               onClick: (event, payload) => {
                 console.log(payload);
-                this.props.onSelectLap(payload.LapNumber);
+                this.props.onSelectLap(payload.index);
               },
             }}
           />
@@ -41,7 +41,7 @@ class LapTimesGraph extends React.Component {
             activeDot={{
               onClick: (event, payload) => {
                 console.log(payload);
-                this.props.onSelectLap(payload.LapNumber);
+                this.props.onSelectLap(payload.index);
               },
             }}
           />
