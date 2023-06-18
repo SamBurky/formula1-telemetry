@@ -60,6 +60,11 @@
   justify-content: center;
 }
 
+.graph-container {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
 /* 
 .telemetry {
   grid-row: span 4;

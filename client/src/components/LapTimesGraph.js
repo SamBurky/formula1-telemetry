@@ -17,7 +17,7 @@ class LapTimesGraph extends React.Component {
 
   render() {
     return (
-      <ResponsiveContainer width="70%" height={450} id="lap-times-graph">
+      <ResponsiveContainer height={450} id="lap-times-graph">
         <LineChart data={this.props.lapData}>
           <Line
             name={this.props.driver1}
@@ -27,8 +27,9 @@ class LapTimesGraph extends React.Component {
             // TODO: RETURNING INDEX INSTEAD OF LAP NUMBER
             activeDot={{
               onClick: (event, payload) => {
+                console.log(event);
                 console.log(payload);
-                this.props.onSelectLap(payload.index);
+                this.props.onSelectLap(this.props.driver1, payload.index);
               },
             }}
           />
@@ -41,16 +42,12 @@ class LapTimesGraph extends React.Component {
             activeDot={{
               onClick: (event, payload) => {
                 console.log(payload);
-                this.props.onSelectLap(payload.index);
+                this.props.onSelectLap(this.props.driver2, payload.index);
               },
             }}
           />
-          <XAxis interval={4} />
-          <YAxis
-            dataKey="LapTime1"
-            type="number"
-            domain={["dataMin - 1000", "dataMax + 1000"]}
-          />
+          <XAxis datakey="LapNumber" />
+          <YAxis type="number" domain={["dataMin - 1000", "dataMax + 1000"]} />
           <Tooltip />
           <Legend verticalAlign="bottom" height={36} layout="horizontal" />
           <CartesianGrid stroke="#ccc" />

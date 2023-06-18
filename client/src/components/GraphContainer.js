@@ -3,6 +3,7 @@ import LapTimesGraph from "./LapTimesGraph";
 import Dropdowns from "./Dropdowns";
 import Minisectors from "./Minisectors";
 import Telemetry from "./Telemetry";
+import SpeedTrace from "./SpeedTrace";
 
 class GraphContainer extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class GraphContainer extends Component {
     this.handleDriver2Change = this.handleDriver2Change.bind(this);
     this.handleLapDataChange = this.handleLapDataChange.bind(this);
     this.handleSelectLap = this.handleSelectLap.bind(this);
+    this.getTelemetry = this.getTelemetry.bind(this);
 
     this.state = {
       year: "",
@@ -28,6 +30,8 @@ class GraphContainer extends Component {
       drivers: "",
       lapData: "",
       selectedLaps: "",
+      telemetryData1: "",
+      telemetryData2: "",
     };
   }
 
@@ -56,7 +60,7 @@ class GraphContainer extends Component {
       driver1: "",
       driver2: "",
     });
-    fetch("/sessions/" + this.state.year + "/" + eventInput)
+    fetch("/sessions/" + eventInput)
       .then((res) => {
         return res.json();
       })
@@ -72,14 +76,7 @@ class GraphContainer extends Component {
       driver1: "",
       driver2: "",
     });
-    fetch(
-      "/drivers/" +
-        this.state.year +
-        "/" +
-        this.state.event +
-        "/" +
-        sessionInput
-    )
+    fetch("/drivers/" + sessionInput)
       .then((res) => {
         return res.json();
       })
@@ -98,18 +95,7 @@ class GraphContainer extends Component {
   }
 
   handleLapDataChange() {
-    fetch(
-      "/lapData/" +
-        this.state.year +
-        "/" +
-        this.state.event +
-        "/" +
-        this.state.session +
-        "/" +
-        this.state.driver1 +
-        "/" +
-        this.state.driver2
-    )
+    fetch("/lapData/" + this.state.driver1 + "/" + this.state.driver2)
       .then((res) => {
         return res.json();
       })
@@ -119,13 +105,40 @@ class GraphContainer extends Component {
       });
   }
 
-  handleSelectLap(selectedLap) {
-    this.setState({ selectedLaps: [...this.state.selectedLaps, selectedLap] });
+  handleSelectLap(driver, selectedLap) {
+    selectedLap = driver + ":" + selectedLap;
+    this.setState((previousState) => ({
+      selectedLaps: [...this.state.selectedLaps, selectedLap],
+    }));
+  }
+
+  getTelemetry() {
+    // const laps = this.state.selectedLaps
+    //   .map(({ i, curr }) => "${i},${curr}")
+    //   .join("|");
+    // console.log(laps);
+    fetch("/telemetryData/" + this.state.driver1 + "/1")
+      .then((res) => {
+        return res.json();
+      })
+      .then((telemetryDataBack) => {
+        console.log(telemetryDataBack);
+        this.setState({ telemetryData1: telemetryDataBack });
+      });
+
+    fetch("/telemetryData/" + this.state.driver2 + "/1")
+      .then((res) => {
+        return res.json();
+      })
+      .then((telemetryDataBack) => {
+        console.log(telemetryDataBack);
+        this.setState({ telemetryData2: telemetryDataBack });
+      });
   }
 
   render() {
     return (
-      <div>
+      <div className="graph-container">
         <div className="flex-container">
           <Dropdowns
             // Handlers
@@ -160,11 +173,19 @@ class GraphContainer extends Component {
             lapData={this.state.lapData}
           />
         </div>
-        <div>
-          <Minisectors />
-        </div>
+        {/* <div>
+          <Minisectors telemetryData={this.state.telemetryData} />
+        </div> */}
         <div className="telemetry">
-          <Telemetry />
+          {/* <Telemetry
+            onSubmit={this.getTelemetry}
+            telemetryData={this.state.telemetryData}
+          /> */}
+          <Telemetry
+            onSubmit={this.getTelemetry}
+            telemetryData1={this.state.telemetryData1}
+            telemetryData2={this.state.telemetryData2}
+          />
         </div>
       </div>
     );
