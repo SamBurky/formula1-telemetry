@@ -43,6 +43,7 @@ class Telemetry extends Component {
 
     return (
       <div id="telemetry-graph">
+        {/* ------------------------------------------- SPEED TRACE ------------------------------------------- */}
         <ResponsiveContainer height={450} id="speed-trace-container">
           <ScatterChart id="speed-trace">
             <Scatter
@@ -73,6 +74,7 @@ class Telemetry extends Component {
           </ScatterChart>
         </ResponsiveContainer>
 
+        {/* ------------------------------------------- THROTTLE TRACE ------------------------------------------- */}
         <ResponsiveContainer height={450} id="throttle-trace-container">
           <LineChart id="throttle-trace" data={this.props.telemetryData}>
             <Line
@@ -115,6 +117,8 @@ class Telemetry extends Component {
             <CartesianGrid stroke="#ccc" />
           </LineChart>
         </ResponsiveContainer>
+
+        {/* ------------------------------------------- BRAKE TRACE ------------------------------------------- */}
         <ResponsiveContainer height={450} id="brake-trace-container">
           <LineChart id="brake-trace" data={this.props.telemetryData}>
             <Line
@@ -157,6 +161,8 @@ class Telemetry extends Component {
             <CartesianGrid stroke="#ccc" />
           </LineChart>
         </ResponsiveContainer>
+
+        {/* ------------------------------------------- GEAR TRACE ------------------------------------------- */}
         <ResponsiveContainer height={450} id="gear-trace-container">
           <LineChart id="gear-trace" data={this.props.telemetryData}>
             <Line
@@ -199,6 +205,8 @@ class Telemetry extends Component {
             <CartesianGrid stroke="#ccc" />
           </LineChart>
         </ResponsiveContainer>
+
+        {/* ------------------------------------------- RPM TRACE ------------------------------------------- */}
         <ResponsiveContainer height={450} id="rpm-trace-container">
           <LineChart id="rpm-trace" data={this.props.telemetryData}>
             <Line
@@ -241,6 +249,8 @@ class Telemetry extends Component {
             <CartesianGrid stroke="#ccc" />
           </LineChart>
         </ResponsiveContainer>
+
+        {/* ------------------------------------------- DRS TRACE ------------------------------------------- */}
         <ResponsiveContainer height={450} id="drs-trace-container">
           <LineChart id="drs-trace" data={this.props.telemetryData}>
             <Line

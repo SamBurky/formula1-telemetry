@@ -15,7 +15,7 @@ class SpeedTrace extends Component {
   constructor(props) {
     super(props);
   }
-
+ 
   render() {
     // function t1points() {
     //   return this.props.telemetryData1.map(({ value, ...item }) => item);
@@ -24,7 +24,7 @@ class SpeedTrace extends Component {
     let t1points = "";
     let t2points = "";
 
-    if (this.props.telemetryData1 != "") {
+    if (this.props.telemetryData1 !== "") {
       t1points = this.props.telemetryData1.map(function (obj) {
         return {
           x: obj.x,
@@ -33,7 +33,7 @@ class SpeedTrace extends Component {
       });
     }
 
-    if (this.props.telemetryData2 != "") {
+    if (this.props.telemetryData2 !== "") {
       t2points = this.props.telemetryData2.map(function (obj) {
         return {
           x: obj.x,
