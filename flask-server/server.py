@@ -1,4 +1,4 @@
-from Flask import Flask, session
+from flask import Flask, session
 import pandas as pd
 import fastf1
 import warnings
@@ -6,7 +6,7 @@ import json
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 # Enable Caching
-fastf1.Cache.enable_cache('./cache')
+fastf1.Cache.enable_cache('../cache')
 
 app = Flask(__name__)
 app.secret_key = "fastf1telemetrykey"
