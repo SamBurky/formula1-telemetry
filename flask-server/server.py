@@ -1,4 +1,4 @@
-from flask import Flask, session
+from Flask import Flask, session
 import pandas as pd
 import fastf1
 import warnings
