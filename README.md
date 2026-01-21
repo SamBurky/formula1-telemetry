@@ -2,9 +2,14 @@
 Formula 1 telemetry website
 
 TO STARTUP:
-1. Activate virtual environment with: .\.venv\Scripts\Activate.ps1
-Start Server with: python .\flask-server\server.py
-Start Client with: npm start
+1. 
+If first time on system:
+After activating virtual environment: `pip install -r requirements.txt`
+
+Always:
+Activate virtual environment with: `.\.venv\Scripts\Activate.ps1`
+Start Server with: python `.\flask-server\server.py`
+Start Client with: `npm start`
 
 TODO:
 - Dropdowns over the top of graphs

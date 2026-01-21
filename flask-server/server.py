@@ -6,7 +6,7 @@ import json
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 # Enable Caching
-fastf1.Cache.enable_cache('../cache')
+fastf1.Cache.enable_cache('..\cache')
 
 app = Flask(__name__)
 app.secret_key = "fastf1telemetrykey"
@@ -100,7 +100,7 @@ def telemetryData( driver, lapNo ):
     # fastest_driver_2 = laps_driver_2.pick_fastest()
     # telemetry_driver_2 = fastest_driver_2.get_telemetry().add_distance()
 
-    telemetry_driver_1 = telemetry_driver_1[['Speed', 'Distance']]
+    telemetry_driver_1 = telemetry_driver_1[['Speed', 'Distance','DRS']]
     telemetry_driver_1 = telemetry_driver_1.rename(columns={'Distance': 'x', 'Speed': 'y'})
     telemetry_driver_1['value'] = telemetry_driver_1.loc[:, 'y']
 
@@ -112,14 +112,14 @@ def telemetryData( driver, lapNo ):
 
 
     # TESTING
-    # # DRS data comes in dirty, set value 8 to 0 and anything > 8 to 1
-    # telemetry_driver_1.loc[telemetry_driver_1['DRS'] == 8, 'DRS'] = 0
-    # telemetry_driver_1.loc[telemetry_driver_1['DRS'] > 8, 'DRS'] = 1
+    # DRS data comes in dirty, set value 8 to 0 and anything > 8 to 1
+    telemetry_driver_1.loc[telemetry_driver_1['DRS'] == 8, 'DRS'] = 0
+    telemetry_driver_1.loc[telemetry_driver_1['DRS'] > 8, 'DRS'] = 1
 
     # telemetry_driver_2.loc[telemetry_driver_2['DRS'] == 8, 'DRS'] = 0
     # telemetry_driver_2.loc[telemetry_driver_2['DRS'] > 8, 'DRS'] = 1
 
-    # # Change brake from true and false to 0 and 1
+    # Change brake from true and false to 0 and 1
     # telemetry_driver_1.loc[telemetry_driver_1['Brake'] == True, 'Brake'] = 1
     # telemetry_driver_1.loc[telemetry_driver_1['Brake'] == False, 'Brake'] = 0
 

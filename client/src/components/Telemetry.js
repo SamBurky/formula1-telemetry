@@ -105,13 +105,13 @@ class Telemetry extends Component {
               //   },
               // }}
             />
-            {/* <XAxis datakey="Distance" type="number" />
+            <XAxis datakey="Distance" type="number" />
             <YAxis
               interval={20}
               // dataKey="Speed"
               // type="number"
               // domain={["dataMin - 1000", "dataMax + 1000"]}
-            /> */}
+            />
             <Tooltip />
             <Legend verticalAlign="bottom" height={36} layout="horizontal" />
             <CartesianGrid stroke="#ccc" />
